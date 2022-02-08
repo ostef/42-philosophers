@@ -1,6 +1,6 @@
 NAME = philo
 SRCDIR = source/
-SRCS = main.c print.c philo.c time.c watcher.c
+SRCS = main.c parse.c print.c utils.c philo.c watcher.c
 SRCFILES = $(addprefix $(SRCDIR),$(SRCS))
 HEADERS = philo.h
 OBJDIR = obj/

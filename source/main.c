@@ -6,57 +6,11 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:31 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:22:33 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:51:31 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static t_bool	int_is_outside_bounds(unsigned long uval, int next_digit)
-{
-	if (uval > 2147483647 / 10)
-		return (TRUE);
-	if (uval * 10 + next_digit > 2147483647)
-		return (TRUE);
-	return (FALSE);
-}
-
-static t_bool	parse_int(t_cstr str, int *out)
-{
-	unsigned long	val;
-
-	val = 0;
-	while (*str && (*str < 9 || *str > 13) && *str != ' ')
-	{
-		if (*str < '0' || *str > '9')
-			return (FALSE);
-		if (int_is_outside_bounds (val, (*str) - '0'))
-			return (FALSE);
-		val *= 10;
-		val += (*str) - '0';
-		str += 1;
-	}
-	*out = val;
-	return (TRUE);
-}
-
-static t_bool	parse_arguments(t_data *data, int argc, t_str *args)
-{
-	if (argc < 4 || argc > 5)
-		return (FALSE);
-	if (!parse_int (args[0], &data->philo_count))
-		return (FALSE);
-	if (!parse_int (args[1], &data->time_to_die))
-		return (FALSE);
-	if (!parse_int (args[2], &data->time_to_eat))
-		return (FALSE);
-	if (!parse_int (args[3], &data->time_to_sleep))
-		return (FALSE);
-	data->eat_to_satiated = -1;
-	if (argc == 5 && !parse_int (args[4], &data->eat_to_satiated))
-		return (FALSE);
-	return (TRUE);
-}
 
 t_bool	initialize(t_data *data)
 {
@@ -65,7 +19,8 @@ t_bool	initialize(t_data *data)
 	pthread_mutex_init (&data->print_mutex, NULL);
 	pthread_mutex_init (&data->death_mutex, NULL);
 	pthread_mutex_init (&data->satiated_mutex, NULL);
-	data->fork_mutexes = (t_mutex *)malloc (sizeof (t_mutex) * data->philo_count);
+	data->fork_mutexes = (t_mutex *)malloc (
+			sizeof (t_mutex) * data->philo_count);
 	if (!data->fork_mutexes)
 		return (FALSE);
 	i = 0;
@@ -85,22 +40,11 @@ t_bool	initialize(t_data *data)
 		data->philos[i].id = i;
 		data->philos[i].data = data;
 		pthread_mutex_init (&data->philos[i].meal_mutex, NULL);
-		pthread_create (&data->philos[i].thread_id, NULL, &thread_entry,
+		pthread_create (&data->philos[i].thread_id, NULL, &philo_thread,
 			&data->philos[i]);
 		i += 1;
 	}
 	return (TRUE);
-}
-
-void	sleep_ms(t_data *data, int time)
-{
-	t_u64	start;
-
-	start = get_time (data);
-	while (get_time (data) - start < (t_u64)time)
-	{
-		usleep (100);
-	}
 }
 
 void	terminate(t_data *data)

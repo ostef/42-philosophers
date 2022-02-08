@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:15 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:22:25 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:51:22 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ typedef enum e_msg
 	MSG_DIED
 }	t_msg;
 
+t_bool	parse_arguments(t_data *data, int argc, t_str *args);
 void	sleep_ms(t_data *data, int time);
-void	terminate(t_data *data);
 t_u64	get_time(t_data *data);
 void	print(t_philo *philo, t_u64 time, t_msg msg);
-void	*thread_entry(void *data);
+void	*philo_thread(void *data);
 void	watch_philos(t_data *data);
 
 #endif

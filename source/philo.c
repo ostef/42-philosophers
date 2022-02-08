@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:30:07 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:20:27 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:51:37 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	eat(t_philo *philo)
 	}
 }
 
-void	*thread_entry(void *data)
+void	*philo_thread(void *data)
 {
 	t_philo	*philo;
 

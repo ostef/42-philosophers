@@ -6,13 +6,13 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:31 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:51:31 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:54:25 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_bool	initialize(t_data *data)
+static t_bool	initialize(t_data *data)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ t_bool	initialize(t_data *data)
 	return (TRUE);
 }
 
-void	terminate(t_data *data)
+static void	terminate(t_data *data)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:15 by soumanso          #+#    #+#             */
-/*   Updated: 2022/01/07 15:39:15 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:22:25 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_philo
 	pthread_t	thread_id;
 	t_u64		last_meal_time;
 	int			meal_count;
+	t_mutex		meal_mutex;
 }	t_philo;
 
 typedef enum e_msg
@@ -70,6 +71,7 @@ typedef enum e_msg
 	MSG_DIED
 }	t_msg;
 
+void	sleep_ms(t_data *data, int time);
 void	terminate(t_data *data);
 t_u64	get_time(t_data *data);
 void	print(t_philo *philo, t_u64 time, t_msg msg);

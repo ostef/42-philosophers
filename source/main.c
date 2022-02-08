@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:31 by soumanso          #+#    #+#             */
-/*   Updated: 2022/01/07 15:39:31 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/08 18:22:33 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,23 @@ t_bool	initialize(t_data *data)
 	{
 		data->philos[i].id = i;
 		data->philos[i].data = data;
+		pthread_mutex_init (&data->philos[i].meal_mutex, NULL);
 		pthread_create (&data->philos[i].thread_id, NULL, &thread_entry,
 			&data->philos[i]);
 		i += 1;
 	}
 	return (TRUE);
+}
+
+void	sleep_ms(t_data *data, int time)
+{
+	t_u64	start;
+
+	start = get_time (data);
+	while (get_time (data) - start < (t_u64)time)
+	{
+		usleep (100);
+	}
 }
 
 void	terminate(t_data *data)
@@ -104,6 +116,7 @@ void	terminate(t_data *data)
 	i = 0;
 	while (data->fork_mutexes && i < data->philo_count)
 	{
+		pthread_mutex_destroy (&data->philos[i].meal_mutex);
 		pthread_mutex_destroy (&data->fork_mutexes[i]);
 		i += 1;
 	}

@@ -28,24 +28,32 @@ static t_bool	should_stop(t_philo *philo)
 	return (val);
 }
 
+static t_bool	wait_until_stop(t_philo *philo)
+{
+	while (!should_stop (philo))
+	{
+	}
+	return (TRUE);
+}
+
 static void	eat(t_philo *philo)
 {
-	int		left;
-	int		right;
+	int	left;
+	int	right;
 
 	left = philo->id;
 	right = (left + 1) % philo->data->philo_count;
-	if (left == right)
-		return ;
 	pthread_mutex_lock (&philo->data->fork_mutexes[left]);
-	print (philo, get_time (philo->data), MSG_FORK_TAKEN);
+	print (philo, MSG_FORK_TAKEN);
+	if (left == right && wait_until_stop (philo))
+		return ;
 	pthread_mutex_lock (&philo->data->fork_mutexes[right]);
-	print (philo, get_time (philo->data), MSG_FORK_TAKEN);
+	print (philo, MSG_FORK_TAKEN);
 	pthread_mutex_lock (&philo->meal_mutex);
 	philo->meal_count += 1;
 	philo->last_meal_time = get_time (philo->data);
 	pthread_mutex_unlock (&philo->meal_mutex);
-	print (philo, philo->last_meal_time, MSG_EATING);
+	print (philo, MSG_EATING);
 	sleep_ms (philo->data, philo->data->time_to_eat);
 	pthread_mutex_unlock (&philo->data->fork_mutexes[left]);
 	pthread_mutex_unlock (&philo->data->fork_mutexes[right]);
@@ -66,7 +74,7 @@ void	*philo_thread(void *data)
 	{
 		if (philo->id % 2 == 0)
 		{
-			print (philo, get_time (philo->data), MSG_SLEEPING);
+			print (philo, MSG_SLEEPING);
 			sleep_ms (philo->data, philo->data->time_to_sleep);
 			if (should_stop (philo))
 				break ;
@@ -76,12 +84,12 @@ void	*philo_thread(void *data)
 			break ;
 		if (philo->id % 2 != 0)
 		{
-			print (philo, get_time (philo->data), MSG_SLEEPING);
+			print (philo, MSG_SLEEPING);
 			sleep_ms (philo->data, philo->data->time_to_sleep);
 			if (should_stop (philo))
 				break ;
 		}
-		print (philo, get_time (philo->data), MSG_THINKING);
+		print (philo, MSG_THINKING);
 	}
 	return (NULL);
 }

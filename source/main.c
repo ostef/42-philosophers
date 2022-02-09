@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static t_bool	initialize(t_data *data)
+static t_bool	initialize_mutexes(t_data *data)
 {
 	int	i;
 
@@ -29,10 +29,19 @@ static t_bool	initialize(t_data *data)
 		pthread_mutex_init (&data->fork_mutexes[i], NULL);
 		i += 1;
 	}
+	return (TRUE);
+}
+
+static t_bool	initialize(t_data *data)
+{
+	int	i;
+
+	if (!initialize_mutexes (data))
+		return (FALSE);
 	data->philos = (t_philo *)malloc (sizeof (t_philo) * data->philo_count);
-	memset (data->philos, 0, sizeof (t_philo) * data->philo_count);
 	if (!data->philos)
 		return (FALSE);
+	memset (data->philos, 0, sizeof (t_philo) * data->philo_count);
 	data->start_time = get_time (data);
 	i = 0;
 	while (i < data->philo_count)

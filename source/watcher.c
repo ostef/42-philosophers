@@ -23,7 +23,10 @@ static t_bool	is_dead(t_philo *philo)
 	time = get_time (philo->data);
 	if ((int)(time - last_meal_time) > philo->data->time_to_die)
 	{
-		print (philo, time, MSG_DIED);
+		pthread_mutex_lock (&philo->data->death_mutex);
+		philo->data->dead = TRUE;
+		pthread_mutex_unlock (&philo->data->death_mutex);
+		print (philo, MSG_DIED);
 		return (TRUE);
 	}
 	return (FALSE);

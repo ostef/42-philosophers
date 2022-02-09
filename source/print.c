@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	print(t_philo *philo, t_u64 time, t_msg msg)
+void	print(t_philo *philo, t_msg msg)
 {
 	static t_cstr	messages[] = {
 		"has taken a fork",
@@ -21,18 +21,12 @@ void	print(t_philo *philo, t_u64 time, t_msg msg)
 		"is thinking",
 		"died"
 	};
-	t_bool			dead;
 
-	dead = FALSE;
-	pthread_mutex_lock (&philo->data->death_mutex);
-	if (philo->data->dead)
-		dead = TRUE;
-	if (msg == MSG_DIED)
-		philo->data->dead = TRUE;
-	pthread_mutex_unlock (&philo->data->death_mutex);
-	if (dead)
-		return ;
 	pthread_mutex_lock (&philo->data->print_mutex);
-	printf ("%lu %i %s\n", time, philo->id, messages[msg]);
+	pthread_mutex_lock (&philo->data->death_mutex);
+	if (!philo->data->dead || msg == MSG_DIED)
+		printf ("%lu %i %s\n", get_time (philo->data),
+			philo->id, messages[msg]);
+	pthread_mutex_unlock (&philo->data->death_mutex);
 	pthread_mutex_unlock (&philo->data->print_mutex);
 }

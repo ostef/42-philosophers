@@ -29,7 +29,5 @@ void	sleep_ms(t_data *data, int time)
 
 	start = get_time (data);
 	while (get_time (data) - start < (t_u64)time)
-	{
 		usleep (100);
-	}
 }

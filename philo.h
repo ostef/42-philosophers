@@ -74,7 +74,7 @@ typedef enum e_msg
 t_bool	parse_arguments(t_data *data, int argc, t_str *args);
 void	sleep_ms(t_data *data, int time);
 t_u64	get_time(t_data *data);
-void	print(t_philo *philo, t_u64 time, t_msg msg);
+void	print(t_philo *philo, t_msg msg);
 void	*philo_thread(void *data);
 void	watch_philos(t_data *data);
 

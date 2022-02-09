@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:09:46 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:48:17 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 14:57:29 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	sleep_ms(t_data *data, int time)
 
 	start = get_time (data);
 	while (get_time (data) - start < (t_u64)time)
-		usleep (100);
+		usleep (1000);
 }

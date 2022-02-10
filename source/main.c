@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:31 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:54:25 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 21:38:07 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static t_bool	initialize_mutexes(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_init (&data->print_mutex, NULL);
 	pthread_mutex_init (&data->death_mutex, NULL);
 	pthread_mutex_init (&data->satiated_mutex, NULL);
 	data->fork_mutexes = (t_mutex *)malloc (
@@ -77,7 +76,6 @@ static void	terminate(t_data *data)
 	free (data->fork_mutexes);
 	pthread_mutex_destroy (&data->satiated_mutex);
 	pthread_mutex_destroy (&data->death_mutex);
-	pthread_mutex_destroy (&data->print_mutex);
 }
 
 int	main(int argc, t_str *args)

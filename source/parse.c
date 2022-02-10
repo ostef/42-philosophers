@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:49:40 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:50:33 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/09 21:07:18 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_bool	parse_int(t_cstr str, int *out)
 	t_u64	val;
 
 	val = 0;
-	while (*str && (*str < 9 || *str > 13) && *str != ' ')
+	while (*str)
 	{
 		if (*str < '0' || *str > '9')
 			return (FALSE);

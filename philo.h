@@ -6,7 +6,7 @@
 /*   By: soumanso <soumanso@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:39:15 by soumanso          #+#    #+#             */
-/*   Updated: 2022/02/08 18:51:22 by soumanso         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 18:06:53 by soumanso         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_data
 	t_bool			dead;
 	int				satiated_philos;
 	t_mutex			*fork_mutexes;
-	t_mutex			print_mutex;
 	t_mutex			death_mutex;
 	t_mutex			satiated_mutex;
 }	t_data;
